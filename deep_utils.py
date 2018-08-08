@@ -31,8 +31,9 @@ def convolution(np_ar, kernel, stride=1, bias=0):
     conv_shape1 = ((np_ar.shape[1] - dim) // stride) + 1
     conv = np.zeros((conv_shape0, conv_shape1))
 
-    i, j = 0, 0
+    j = 0
     for y in range(dim - 1, np_ar.shape[0], stride):
+        i = 0
         for x in range(dim - 1, np_ar.shape[1], stride):
             window = np_ar[(y - dim + 1): (y + 1), (x - dim + 1): (x + 1)]
             conv[j - hks, i - hks] = np.einsum(ein_eq, window, kernel) + bias
