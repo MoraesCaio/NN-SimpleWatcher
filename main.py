@@ -13,17 +13,20 @@ import p
 # print('a = ', np.array(a).shape)
 # print('bw = ', np.array(bw).shape)
 
-def show(ar):
+def show(ar, cv_img=False):
+    ar = np.array(ar)
+    if cv_img:
+        ar = cv.cvtColor(ar, cv.COLOR_BGR2RGB)
     if len(ar.shape) == 3:
         print('RGB')
-        Image.fromarray(cv2.cvtColor(ar, cv2.COLOR_BGR2RGB) , 'RGB').show()
+        img.fromarray(ar, 'RGB').show()
     elif len(ar.shape) == 4:
         print('RGBA')
-        Image.fromarray(ar, 'RGBA').show()
+        img.fromarray(ar, 'RGBA').show()
     else:
         print('L')
-        Image.fromarray(ar, 'L').show()
-    input('press enter')
+        img.fromarray(ar, 'L').show()
+    # input('press enter')
 
 # sobel_gx = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
 # a_cv = cv2.imread('a.jpg', -1)
