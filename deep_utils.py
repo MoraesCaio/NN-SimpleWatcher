@@ -43,6 +43,19 @@ def convolution(np_ar, kernel, stride=1, bias=0):
     return conv
 
 
+def conv_colors(np_ar, kernel_2d, stride=1, bias=0):
+
+    crop_dim = kernel_2d.shape[0] - 1
+    shape = (np_ar.shape[0] - crop_dim, np_ar.shape[1] - crop_dim, np_ar.shape[2])
+
+    copy = np.zeros(shape, dtype=np_ar.dtype)
+
+    for i in range(copy.shape[2]):
+        copy[:, :, i] = convolution(np_ar[:, :, i], kernel_2d, stride, bias)
+
+    return copy
+
+
 def format_img_ar(ar):
     return np.uint8(np.clip(ar, 0, 255))
 
