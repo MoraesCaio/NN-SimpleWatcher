@@ -68,11 +68,11 @@ def tanh(np_ar):
     return (2 / (1 + np.exp(-2 * np_ar))) - 1
 
 
+def normalize(np_ar):
+    min_val = np.min(np_ar)
+    range_val = np.max(np_ar) - min_val
+    return (np_ar - min_val) * 255 / range_val
+
+
 def np_ar_from_text():
-    pass
-
-
-def normalize():
-    # mininum value -> 0
-    # maximum value -> 255
     pass
