@@ -77,15 +77,18 @@ def conv_colors(np_ar, kernel_2d, stride=1, bias=0):
     Returns:
         numpy.ndarray: 3d numpy.ndarray resulting image
     """
-    crop_dim = kernel_2d.shape[0] - 1
-    shape = (np_ar.shape[0] - crop_dim, np_ar.shape[1] - crop_dim, np_ar.shape[2])
 
-    copy = np.zeros(shape, dtype=np_ar.dtype)
+    channels = []
+    for i in range(np_ar.shape[2]):
+        channels.append(convolution(np_ar[:, :, i], kernel_2d, stride, bias))
 
-    for i in range(copy.shape[2]):
-        copy[:, :, i] = convolution(np_ar[:, :, i], kernel_2d, stride, bias)
+    shape = (channels[0].shape[0], channels[0].shape[1], np_ar.shape[2])
+    result = np.zeros(shape, dtype=np_ar.dtype)
 
-    return copy
+    for ch, channel in enumerate(channels):
+        result[:, :, ch] = channel
+
+    return result
 
 
 def format_img_ar(np_ar):
