@@ -3,8 +3,6 @@ from pathlib import Path
 from PIL import Image as img
 import numpy as np
 import deep_utils as du
-import keras
-
 
 def file_exist(path_str, verbose=False):
     exist = Path(path_str).is_file()
@@ -35,7 +33,7 @@ def main():
     args, _ = parser.parse_known_args()
 
     # FOR TESTING ON IDES
-    # args.image = 'd.jpg'
+    # args.image = 'Sample_Images/d.jpg'
     # args.zero_padding = True
     # args.kernel1 = 'k1.txt'
     # args.kernel2 = 'k2.txt'
@@ -49,7 +47,7 @@ def main():
     # args.activation_function3 = 'relu'
     # args.normalize = True
     # args.view = True
-    # args.output = 'k1k2k3.jpg'
+    # args.output = 'Sample_Images/result.jpg'
 
     image_ar = None
 
