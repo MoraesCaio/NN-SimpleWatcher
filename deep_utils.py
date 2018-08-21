@@ -31,7 +31,7 @@ def padding(np_ar, kernel, extension=False):
     return padded_ar
 
 
-def convolution(np_ar, kernel, stride=1, bias=0):
+def convolution(np_ar, kernel, stride=1, bias=0.0):
     """Applies 2d or 3d convolution.
 
     Args:
