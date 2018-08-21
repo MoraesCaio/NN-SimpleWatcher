@@ -35,12 +35,12 @@ def main():
     # FOR TESTING ON IDES
     # args.image = 'Sample_Images/d.jpg'
     # args.zero_padding = True
-    # args.kernel1 = 'k1.txt'
-    # args.kernel2 = 'k2.txt'
-    # args.kernel3 = 'k3.txt'
-    # args.bias1 = 'b1.txt'
-    # args.bias2 = 'b2.txt'
-    # args.bias3 = 'b3.txt'
+    # args.kernel1 = 'weightsAndBias/k1.txt'
+    # args.kernel2 = 'weightsAndBias/k2.txt'
+    # args.kernel3 = 'weightsAndBias/k3.txt'
+    # args.bias1 = 'weightsAndBias/b1.txt'
+    # args.bias2 = 'weightsAndBias/b2.txt'
+    # args.bias3 = 'weightsAndBias/b3.txt'
     # args.stride = 1
     # args.activation_function1 = 'relu'
     # args.activation_function2 = 'relu'
