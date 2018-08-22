@@ -129,18 +129,30 @@ def tanh(np_ar):
     return (2 / (1 + np.exp(-2 * np_ar))) - 1
 
 
-def normalize_uint8(np_ar):
+def normalize(np_ar, min_val, max_val):
     """Normalize values to 0 - 255 range
 
     Args:
         np_ar (numpy.ndarray): input numpy.ndarray
+        min_val (int | float): mininum value for normalization
+        max_val (int | float): maximum value for normalization
 
     Returns:
         numpy.ndarray: Normalized np_ar
     """
-    min_val = np.min(np_ar)
-    range_val = np.max(np_ar) - min_val
-    return (np_ar - min_val) * 255 / range_val
+    # [0:1] normalization
+    np_min = np.min(np_ar)
+    np_range = np.max(np_ar) - np_min
+
+    # avoiding division by zero due to unitary arrays
+    if np_range == 0:
+        return np_ar
+
+    norm01 = (np_ar - np_min) / np_range
+
+    # [min_val:max_val] scaling
+    new_range = max_val - min_val
+    return (norm01 * new_range) + min_val
 
 
 def ar3d_to_file(fid, np_ar, dtype='float64', sep3=','):

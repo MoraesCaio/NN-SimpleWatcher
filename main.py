@@ -116,13 +116,13 @@ def main():
         if fa == 'relu':
             outs[o] = du.relu(outs[o])
         elif fa == 'tanh':
-            outs[o] = du.tanh(outs[o])
+            outs[o] = du.tanh(du.normalize(outs[o], 0, 1))
 
     # NORMALIZATION
 
     if args.normalize:
         for o in range(len(outs)):
-            outs[o] = du.normalize_uint8(outs[o])
+            outs[o] = du.normalize(outs[o], 0, 255)
 
     # RESULT
 
