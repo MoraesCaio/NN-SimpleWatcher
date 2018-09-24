@@ -3,6 +3,8 @@ from pathlib import Path
 from PIL import Image as img
 import numpy as np
 import deep_utils as du
+from img_filter import Filter as F
+
 
 def file_exist(path_str, verbose=False):
     exist = Path(path_str).is_file()
@@ -54,7 +56,7 @@ def main():
     if not file_exist(args.image, verbose=True):
         return
     else:
-        image_ar = np.array(img.open(args.image))
+        image_ar = np.int64(img.open(args.image))
 
     # KERNELS AND BIASSES
 

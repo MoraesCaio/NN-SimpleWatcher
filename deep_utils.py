@@ -15,7 +15,7 @@ def padding(np_ar, kernel, extension=False):
     """
     # adding margins
     hks = int((kernel.shape[0] - 1) / 2)  # half_kernel_size
-    padded_ar = np.zeros([np_ar.shape[0] + 2 * hks, np_ar.shape[1] + 2 * hks, np_ar.shape[2]], np.uint8)
+    padded_ar = np.zeros([np_ar.shape[0] + 2 * hks, np_ar.shape[1] + 2 * hks, *np_ar.shape[2:]], dtype=np_ar.dtype)
     padded_ar[hks:-hks, hks:-hks] = np.copy(np_ar)
 
     if not extension:
@@ -48,17 +48,16 @@ def convolution(np_ar, kernel, stride=1, bias=0.0):
     ein_eq = ein_op1 + ',' + ein_op2 + '->'
 
     dim = kernel.shape[0]
-    hks = dim // 2  # half kernel size
     conv_shape0 = ((np_ar.shape[0] - dim) // stride) + 1
     conv_shape1 = ((np_ar.shape[1] - dim) // stride) + 1
-    conv = np.zeros((conv_shape0, conv_shape1))
+    conv = np.zeros((conv_shape0, conv_shape1), dtype=np_ar.dtype)
 
     j = 0
     for y in range(dim - 1, np_ar.shape[0], stride):
         i = 0
         for x in range(dim - 1, np_ar.shape[1], stride):
             window = np_ar[(y - dim + 1): (y + 1), (x - dim + 1): (x + 1)]
-            conv[j - hks, i - hks] = np.einsum(ein_eq, window, kernel) + bias
+            conv[j, i] = np.einsum(ein_eq, window, kernel) + bias
             i += 1
         j += 1
 
@@ -155,7 +154,7 @@ def normalize(np_ar, min_val, max_val):
     return (norm01 * new_range) + min_val
 
 
-def ar3d_to_file(fid, np_ar, dtype='float64', sep3=','):
+def ar3d_to_file(fid, np_ar, dtype='int64', sep3=','):
     """
     Saves a 3d numpy array onto a text file with following the structure:
         value(sep3)value(sep3)(sep2)
@@ -190,7 +189,7 @@ def ar3d_to_file(fid, np_ar, dtype='float64', sep3=','):
             f.write(sep1)
 
 
-def file_to_ar3d(fid, dtype='float64', sep3=','):
+def file_to_ar3d(fid, dtype='int64', sep3=','):
     """
     Reads a 3d numpy array from text file with following the structure:
         value(sep3)value(sep3)(sep2)
